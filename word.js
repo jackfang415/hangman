@@ -38,15 +38,29 @@ var Word = function(stringValue) {
 
 		}
 	}
+	
+	this.endGame = function () {
+
+		var solved = true;
+		for (var i = 0; i < this.arrOfLetters.length; i++) {
+
+			if(!this.arrOfLetters[i].guessed){
+
+				solved = false;
+			}
+		}
+
+		return solved;
+	}
 
 }
 
-var word = new Word("heinsenberg")
+// var word = new Word("heinsenberg")
 
-word.buildLetters()
-// word.checkInput("s")
-// word.checkInput("h")
-console.log(word.showCurrentValue())
+// word.buildLetters()
+// // word.checkInput("s")
+// // word.checkInput("h")
+// console.log(word.showCurrentValue())
 
 module.exports = Word
 
