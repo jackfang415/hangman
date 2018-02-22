@@ -1,5 +1,6 @@
 var Letter = require("./letters.js")
 
+
 var Word = function(stringValue) {
 
 	this.value = stringValue;
@@ -32,11 +33,21 @@ var Word = function(stringValue) {
 //This function is used to check the input with the array of letters by looping through every letter.
 	this.checkInput = function(check) {
 
+		var correct = false
 		for(i = 0; i < this.arrOfLetters.length; i++) {
 
-			this.arrOfLetters[i].checkGuess(check)
+		var holder = this.arrOfLetters[i].checkGuess(check)
+
+		if (holder) {
+
+			correct = true
+
+			}
 
 		}
+
+		return correct
+
 	}
 	
 	this.endGame = function () {

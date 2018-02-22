@@ -17,15 +17,19 @@ word.checkInput()
 
 console.log(word.showCurrentValue())
 
+//Display the stats
+
 var display = function () {
 
 	console.log("Win: " + wins)
 	console.log("Losses: " + losses)
-	console.log(guessesLeft)
+	console.log("Guesses Left: " + guessesLeft)
 	console.log(userChoice)
 	console.log(word.showCurrentValue())
 
 }
+
+//Starts the game
 
 function startGame () {
 display();
@@ -41,14 +45,24 @@ inquirer.prompt([
 
 		var guess = user.guess[0].toLowerCase();
 
+//This checks if the letter has been used.
+
 		if (userChoice.includes(guess) || !guess) {
 
+			console.log("=========================================")
+			console.log("")
+			console.log("YOU HAVE GUESSED THIS LETTER!!! TRY AGAIN")
+			console.log("")
+			console.log("==========================================")
 			return startGame()
 
 		}
 
 		userChoice.push(guess)
-		word.checkInput(guess)
+
+		var rightGuess = word.checkInput(guess)
+
+//When the player wins it will show them a winning message.
 
 		if (word.endGame()) {
 
@@ -58,12 +72,41 @@ inquirer.prompt([
 			console.log("I JUST WANNA SAY CONGRATULATION!!!"),
 			console.log(""),
 			console.log("====================================")
+
+			restart();
+
+		} else {
+
+			guessesLeft --;
+			if(guessesLeft === 0) {
+
+			losses++;
+
+			console.log("=================")
+			console.log("")
+			console.log("YOU HAVE LOST!!!")
+			console.log("")
+			console.log("=================")
+
+			restart();
+
+			}
+
 		}
 
 		startGame();
 
 	})
 
+}
+
+function restart(){
+	correct = false
+	userChoice = []
+	guessesLeft = 10
+	word = new Word(wordChoice)
+	word.buildLetters();
+	word.showCurrentValue();
 }
 
 startGame();
